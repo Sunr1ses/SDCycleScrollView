@@ -589,7 +589,13 @@ NSString * const ID = @"SDCycleScrollViewCell";
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
                 if (image != nil) {
                     CGRect rect = cell.imageView.frame;
-                    rect.size.height = image.size.height * rect.size.width / image.size.width;
+                    CGFloat imageProportion = image.size.height / image.size.width;
+                    CGFloat cellProportion = cell.bounds.size.height / cell.bounds.size.width;
+                    if (imageProportion > cellProportion) {
+                        rect.size.height = rect.size.width * imageProportion;
+                    } else {
+                        rect.size.height = rect.size.width * cellProportion;
+                    }
                     cell.imageView.frame = rect;
                 }
             }];
