@@ -70,6 +70,7 @@
 - (void)setupImageView
 {
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.clipsToBounds = YES;
     _imageView = imageView;
     [self.contentView addSubview:imageView];
 }
